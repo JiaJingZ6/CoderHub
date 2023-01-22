@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/JiaJingZ6/CoderHub#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "koa": "^2.14.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^12.0.0",
+    "mysql2": "^3.0.1",
     "nodemon": "^2.0.20"
   }
 }
