@@ -33,6 +33,18 @@ class MomentService {
     const result = await pool.execute(statement, [offset, size])
     return result[0]
   }
+
+  async update(content, momentID) {
+    const statement = `UPDATE moment SET content = ? WHERE id = ?;`
+    const result = await pool.execute(statement, [content, momentID])
+    return result[0]
+  }
+  
+  async remove(momentID) {
+    const statement = `DELETE FROM moment WHERE id = ?;`
+    const result = await pool.execute(statement, [momentID])
+    return result[0]
+  }
 }
 
 module.exports = new MomentService()

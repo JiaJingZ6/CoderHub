@@ -15,11 +15,7 @@ class UserController {
       expiresIn: 24 * 60 * 60,
       algorithm: 'RS256'
     })
-    ctx.body = {
-      id,
-      name,
-      token
-    }
+    ctx.body = { id, name, token }
   }
 
   async auth(ctx, next) {

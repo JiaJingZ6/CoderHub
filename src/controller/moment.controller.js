@@ -20,6 +20,19 @@ class MomentController {
     const result = await service.getMomentList({offset, size})
     ctx.body = result
   }
+
+  async update(ctx, next) {
+    const { momentID } = ctx.params
+    const { content } = ctx.request.body
+    const result = await service.update(content, momentID)
+    ctx.body = result
+  }
+
+  async remove(ctx, next) {
+    const { momentID } = ctx.params
+    const result = await service.remove(momentID)
+    ctx.body = result
+  }
 }
 
 module.exports = new MomentController()

@@ -3,7 +3,8 @@ const {
   NAME_OR_PASSWORD_IS_REQUIRED,
   USER_IS_NOT_EXIST,
   PASSWORD_ERROR,
-  UNAUTHORIZATION
+  UNAUTHORIZATION,
+  UNPERMISSION
 } = require('../constants/error-types')
 
 const errorHandler = (error, ctx) => {
@@ -28,6 +29,10 @@ const errorHandler = (error, ctx) => {
     case UNAUTHORIZATION:
       status = 401
       body = '无效token'
+      break
+    case UNPERMISSION:
+      status = 401
+      body = '您不具备操作权限'
       break
     default:
       status = 404
