@@ -1,12 +1,12 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
-const userRouter = require('../router/user.router')
+const useRouter = require('../router')
 const errorHandler = require('../app/errorHandler')
 
 const app = new Koa()
 
 app.use(bodyParser())
-app.use(userRouter.routes()).use(userRouter.allowedMethods())
+useRouter(app)
 
 app.on('error', errorHandler)
 
