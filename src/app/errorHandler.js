@@ -2,7 +2,8 @@ const {
   USER_ALREADY_EXIST,
   NAME_OR_PASSWORD_IS_REQUIRED,
   USER_IS_NOT_EXIST,
-  PASSWORD_ERROR
+  PASSWORD_ERROR,
+  UNAUTHORIZATION
 } = require('../constants/error-types')
 
 const errorHandler = (error, ctx) => {
@@ -23,6 +24,10 @@ const errorHandler = (error, ctx) => {
     case PASSWORD_ERROR:
       status = 400
       body = '密码不正确'
+      break
+    case UNAUTHORIZATION:
+      status = 401
+      body = '无效token'
       break
     default:
       status = 404
