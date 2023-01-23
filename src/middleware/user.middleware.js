@@ -4,6 +4,7 @@ const {
 } = require('../constants/error-types')
 
 const { getUserByName } = require('../service/user.service')
+const md5password = require('../utils/md5password')
 
 const verifyuser = async (ctx, next) => {
   const { name, password } = ctx.request.body
@@ -22,6 +23,14 @@ const verifyuser = async (ctx, next) => {
   await next()
 }
 
+const handlePassword = async (ctx, next) => {
+  let { password } = ctx.request.body
+  ctx.request.body.password = md5password(password)
+
+  await next()
+}
+
 module.exports = {
-  verifyuser
+  verifyuser,
+  handlePassword
 }
