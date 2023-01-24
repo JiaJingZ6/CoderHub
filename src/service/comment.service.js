@@ -1,6 +1,18 @@
 const pool = require('../app/database')
 
 class CommentService {
+  async getCommentsByMomentID(momentID) {
+    const statement = `
+      SELECT
+        m.id, m.content, m.comment_id commentId, m.createAt createTime,
+        JSON_OBJECT('id', u.id, 'name', u.name)
+      FROM comment m
+      LEFT JOIN users u ON u.id = m.user_id
+      WHERE moment_id = ?;`
+    const result = await pool.execute(statement, [momentID])
+    return result[0]
+  }
+
   async getCommentById(commentID) {
     const statement = `
       SELECT
