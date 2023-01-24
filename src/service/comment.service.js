@@ -33,6 +33,12 @@ class CommentService {
     const result = await pool.execute(statement, [content, commentID])
     return result[0]
   }
+
+  async remove(commentID) {
+    const statement = `DELETE FROM comment WHERE id = ?;`
+    const result = await pool.execute(statement, [commentID])
+    return result[0]
+  }
 }
 
 module.exports = new CommentService()
