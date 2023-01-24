@@ -15,6 +15,13 @@ class CommentController {
     const result = await service.relpy(content, momentID, id, commentID)
     ctx.body = result
   }
+
+  async update(ctx, next) {
+    const { content } = ctx.request.body
+    const { commentID } = ctx.params
+    const result = await service.update(content, commentID)
+    ctx.body = result
+  }
 }
 
 module.exports = new CommentController()

@@ -2,9 +2,11 @@ const jwt = require('jsonwebtoken')
 const { PUBLIC_KEY } = require('../app/config')
 const { UNAUTHORIZATION, UNPERMISSION } = require('../constants/error-types')
 const { getMomentById } = require('../service/moment.service')
+const { getCommentById } = require('../service/comment.service')
 
 const verifyauth = async (ctx, next) => {
   const authorization = ctx.header.authorization
+  
   // 判断有没有传递token，没有传递也是未授权
   if(!authorization) {
     const error = new Error(UNAUTHORIZATION)
@@ -25,7 +27,7 @@ const verifyauth = async (ctx, next) => {
   }
 }
 
-const verifyPermission = async (ctx, next) => {
+const verifyMomentPermission = async (ctx, next) => {
   const { id } = ctx.user
   const { momentID } = ctx.params
   const [ { users } ] = await getMomentById(momentID)
@@ -36,7 +38,19 @@ const verifyPermission = async (ctx, next) => {
   await next()
 }
 
+const verifyCommentPermission = async (ctx, next) => {
+  const { id } = ctx.user
+  const { commentID } = ctx.params
+  const [ { users } ] = await getCommentById(commentID)
+  if(id !== users.id) {
+    const error = new Error(UNPERMISSION)
+    return ctx.app.emit('error', error, ctx)
+  }
+  await next()
+}
+
 module.exports = {
   verifyauth,
-  verifyPermission
+  verifyMomentPermission,
+  verifyCommentPermission
 }
