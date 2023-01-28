@@ -5,6 +5,12 @@ class LabelController {
     const result = await service.create(label)
     ctx.body = result
   }
+
+  async list(ctx, next) {
+    const {offset, size} = ctx.query
+    const result = await service.getLabelList(offset, size)
+    ctx.body = result
+  }
 }
 
 module.exports = new LabelController()

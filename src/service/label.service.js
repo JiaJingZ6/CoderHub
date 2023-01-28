@@ -15,6 +15,12 @@ class LabelService {
       result
     }
   }
+
+  async getLabelList(offset, size) {
+    const statement = `SELECT * FROM label LIMIT ?, ?;`
+    const [result] = await pool.execute(statement, [offset, size])
+    return result
+  }
 }
 
 module.exports = new LabelService()
