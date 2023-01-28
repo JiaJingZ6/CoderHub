@@ -13,6 +13,12 @@ class UserService {
     const result = await pool.execute(statement, [name])
     return result[0]
   }
+
+  async updateAvatarById(userID, avatarUrl) {
+    const statement = `UPDATE users SET avatar_url = ? WHERE id = ?;`
+    const result = await pool.execute(statement, [avatarUrl, userID])
+    return result[0]
+  }
 }
 
 module.exports = new UserService()
