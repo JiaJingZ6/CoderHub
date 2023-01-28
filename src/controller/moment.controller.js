@@ -33,6 +33,18 @@ class MomentController {
     const result = await service.remove(momentID)
     ctx.body = result
   }
+
+  async addLabel(ctx, next) {
+    const { newLabels } = ctx
+    const { momentID } = ctx.params
+    for(const label of newLabels) {
+      const hasLabel = await service.hasLabel(momentID, label.id)
+      if(!hasLabel) {
+        await service.addLabels(momentID, label.id)
+      }
+    }
+    ctx.body = '添加成功'
+  }
 }
 
 module.exports = new MomentController()

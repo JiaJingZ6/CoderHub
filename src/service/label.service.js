@@ -6,6 +6,15 @@ class LabelService {
     const result = await pool.execute(statement, [label])
     return result[0]
   }
+
+  async isLabelExist(label) {
+    const statement = `SELECT * FROM label WHERE name = ?;`
+    const [result] = await pool.execute(statement, [label])
+    return {
+      exist: result.length > 0,
+      result
+    }
+  }
 }
 
 module.exports = new LabelService()

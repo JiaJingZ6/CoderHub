@@ -49,6 +49,18 @@ class MomentService {
     const result = await pool.execute(statement, [momentID])
     return result[0]
   }
+
+  async addLabels(momentID, labelID) {
+    const statement = `INSERT INTO moment_label (moment_id, label_id) VALUES (?, ?);`
+    const result = await pool.execute(statement, [momentID, labelID])
+    return result[0]
+  }
+
+  async hasLabel(momentID, labelID) {
+    const statement = `SELECT * FROM moment_label WHERE moment_id = ? and label_id = ?;`
+    const result = await pool.execute(statement, [momentID, labelID])
+    return result[0].length > 0
+  }
 }
 
 module.exports = new MomentService()
