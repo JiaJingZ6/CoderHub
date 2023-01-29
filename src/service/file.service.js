@@ -18,6 +18,12 @@ class FileService {
     const result = await pool.execute(statement, [filename, mimetype, size, momentID, userID])
     return result[0]
   }
+
+  async getPictureByFilename(filename) {
+    const statement = `SELECT * FROM file WHERE filename = ?;`
+    const result = await pool.execute(statement, [filename])
+    return result[0]
+  }
 }
 
 module.exports = new FileService()
